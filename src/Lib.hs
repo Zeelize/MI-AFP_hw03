@@ -1,6 +1,8 @@
 module Lib where
 
 import qualified Data.List
+import Data.DummyList.Examples as DL
+import Data.MyString.Examples as S
 
 -------------------------------------------------------------------------------
 -- DO NOT EDIT DATA TYPES!
@@ -175,8 +177,8 @@ phi n = phiPrimes (factorization (abs n))
 -- !!! DO NOT COPY, JUST IMPORT (avoid conflicts, pick the best option for you)
 -- iii visit the content of modules
 -- TODO: replace undefined with "example1" from Data.DummyList.Examples module
-dummyListExample1 = undefined
+dummyListExample1 = DL.example1
 -- TODO: replace undefined with "example2" from Data.MyString.Examples module
-stringExample2 = undefined
+stringExample2 = S.example2
 -- TODO: replace undefined with "example3" from Data.MyString.Examples module
-stringExample3 = undefined
+stringExample3 = S.example3
