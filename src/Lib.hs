@@ -141,7 +141,15 @@ primes = [2] ++ (nextPrime [3,5..])
 
 -- TODO: implement list of prime factors for given number (use primes list)
 factorization :: Integer -> [Integer]
-factorization = undefined
+factorization n = facDiv n 0
+    where
+        facDiv :: Integer -> Int -> [Integer]
+        facDiv n i
+            | n <= 1 = []
+            | mod n curPrime == 0 = [curPrime] ++ facDiv (div n curPrime) i 
+            | otherwise = facDiv n (i + 1)
+            where 
+                curPrime = primes !! i
 
 
 -- | Euler's totient function
