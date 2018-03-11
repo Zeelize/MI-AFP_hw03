@@ -117,7 +117,11 @@ shapeArea (Triangle a b c) = sqrt (s * (s - a) * (s - b) * (s - c))
 -- | https://en.wikipedia.org/wiki/Geometric_progression
 -- TODO: implement geometric series
 geometricSequence :: Num b => b -> b -> [b]
-geometricSequence a r = undefined
+geometricSequence a r = [a] ++ (gSequenceContinue a r 1)
+
+gSequenceContinue :: Num b => b -> b -> Integer -> [b]
+gSequenceContinue a r p = [value] ++ (gSequenceContinue a r (p + 1))
+    where value = a * (r ^ p)
 
 
 -- TODO: implement infinite list of primes [2, 3, 5, 7, 11, ...]
