@@ -91,7 +91,25 @@ data AllensIAlgebraRelation a = (a, a) `Equals`   (a, a) -- X = Y
 -- | It assumes that for (x, y) is always x <= y
 -- TODO: implement Allen's algebra relation detection of intervals
 allensComparison :: Ord a => (a, a) -> (a, a) -> AllensIAlgebraRelation a
-allensComparison = undefined
+allensComparison (x1, x2) (y1, y2) 
+    | x1 == y1 = fstEquals (x1, x2) (y1, y2)
+    | x1 < y1 = fstLower (x1, x2) (y1, y2)
+    | otherwise = fstLower (y1, y2) (x1, x2)
+
+fstEquals :: Ord a => (a, a) -> (a, a) -> AllensIAlgebraRelation a
+fstEquals (x1, x2) (y1, y2) 
+    | x2 == y2 = Equals (x1, x2) (y1, y2)
+    | x2 < y2 = Starts (x1, x2) (y1, y2)
+    | otherwise = Starts (y1, y2) (x1, x2) 
+
+fstLower :: Ord a => (a, a) -> (a, a) -> AllensIAlgebraRelation a
+fstLower (x1, x2) (y1, y2)
+    | x2 == y1 = Meets (x1, x2) (y1, y2)
+    | x2 == y2 = Finishes (y1, y2) (x1, x2)
+    | x2 > y2 = During (y1, y2) (x1, x2)
+    | x2 < y1 = Before (x1, x2) (y1, y2)
+    | x2 > y1 = Overlaps (x1, x2) (y1, y2)   
+    
 
 -------------------------------------------------------------------------------
 -- DO NOT EDIT DATA TYPE!
