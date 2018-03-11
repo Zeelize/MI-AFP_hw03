@@ -1,5 +1,7 @@
 module Lib where
 
+import Data.List
+
 -------------------------------------------------------------------------------
 -- DO NOT EDIT DATA TYPES!
 data MaritalStatus = Single | Married | Widowed
@@ -33,7 +35,38 @@ data Person = Person { pFirstname     :: String
 -- | http://www.studenta.cz/vysokoskolske-tituly-jak-oslovovat-na-akademicke-pude/magazin/article/587
 -- TODO: implement czech salutation which passes the tests
 czechSalutation :: Person -> String
-czechSalutation = undefined
+czechSalutation p 
+    | (pAge p) < 15 = pFirstname p
+    | otherwise = (genderSalut p) ++ (titleStatus p) ++ (nameSalut p)
+
+genderSalut :: Person -> String
+genderSalut p
+    | (pGender p) == Male = "pan "
+    | (pAge p) < 25 && (pMaritalStatus p) == Single && (pATitles p) == [] = "slečna "
+    | otherwise = "paní "
+
+titleStatus :: Person -> String
+titleStatus p
+    | (pATitles p) == [] = ""
+    | otherwise = (titleS p)
+
+titleS :: Person -> String
+titleS p 
+    | Prof == pMaxTitle = "profesor" ++ (titleGender p "ka")
+    | Doc == pMaxTitle = "docent" ++ (titleGender p "ka")
+    | elem pMaxTitle [PhD, MUDr, PhDr] = "doktor" ++ (titleGender p "ka")
+    | Ing == pMaxTitle = "inženýr" ++ (titleGender p "ka")
+    | Mgr == pMaxTitle = "magistr" ++ (titleGender p "a")
+    | otherwise = ""
+    where pMaxTitle = maximum (pATitles p)
+
+titleGender :: Person -> String -> String
+titleGender p s
+    | (pGender p) == Male = " "
+    | otherwise = s ++ " "
+
+nameSalut :: Person -> String
+nameSalut p = (pFirstname p) ++ " " ++ (pLastname p)
 
 -------------------------------------------------------------------------------
 -- DO NOT EDIT DATA TYPE!
