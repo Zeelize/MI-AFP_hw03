@@ -126,7 +126,18 @@ gSequenceContinue a r p = [value] ++ (gSequenceContinue a r (p + 1))
 
 -- TODO: implement infinite list of primes [2, 3, 5, 7, 11, ...]
 primes :: [Integer]
-primes = undefined
+primes = [2] ++ (nextPrime [3,5..])
+    where 
+        nextPrime :: [Integer] -> [Integer]
+        nextPrime (x:xs) 
+            | length (divider x 2) == 0 = [x] ++ (nextPrime xs)
+            | otherwise = nextPrime xs
+            where 
+                divider :: Integer -> Integer -> [Integer]
+                divider n cur 
+                    | cur >= n = []
+                    | mod n cur == 0 = [cur] ++ divider n (cur + 1)
+                    | otherwise = divider n (cur + 1) 
 
 -- TODO: implement list of prime factors for given number (use primes list)
 factorization :: Integer -> [Integer]
