@@ -1,7 +1,5 @@
 module Lib where
 
-import Data.List
-
 -------------------------------------------------------------------------------
 -- DO NOT EDIT DATA TYPES!
 data MaritalStatus = Single | Married | Widowed
@@ -101,11 +99,18 @@ data Shape2D = Circle { ciRadius :: Double }
 
 -- TODO: implement circumference calculation for 2D shapes
 shapeCircumference :: Shape2D -> Double
-shapeCircumference = undefined
+shapeCircumference (Circle r) = 2 * pi * r
+shapeCircumference (Square x) = 4 * x
+shapeCircumference (Rectangle x y) = 2 * x + 2 * y
+shapeCircumference (Triangle a b c) = a + b + c
 
 -- TODO: implement area calculation for 2D shapes
 shapeArea :: Shape2D -> Double
-shapeArea = undefined
+shapeArea (Circle r) = pi * r * r
+shapeArea (Square x) = x * x
+shapeArea (Rectangle x y) = x * y
+shapeArea (Triangle a b c) = sqrt (s * (s - a) * (s - b) * (s - c))
+    where s = (a + b + c) / 2
 
 -------------------------------------------------------------------------------
 -- | Geometric sequence as infinite list
