@@ -1,5 +1,7 @@
 module Lib where
 
+import qualified Data.List
+
 -------------------------------------------------------------------------------
 -- DO NOT EDIT DATA TYPES!
 data MaritalStatus = Single | Married | Widowed
@@ -156,7 +158,18 @@ factorization n = facDiv n 0
 -- | https://en.wikipedia.org/wiki/Euler%27s_totient_function
 -- TODO: implement phi(n) by using search in primes & factorization
 phi :: Integer -> Integer
-phi = undefined
+phi 0 = 0
+phi n = phiPrimes (factorization (abs n)) 
+    where
+        phiPrimes :: [Integer] -> Integer
+        phiPrimes pL = pGroup (Data.List.group pL)
+            where
+                pGroup :: [[Integer]] -> Integer
+                pGroup [] = 1
+                pGroup (x:xs) = ((p - 1) * (p ^ (k - 1))) * (pGroup xs)
+                    where 
+                        p = Data.List.head x
+                        k = length x  
 
 -------------------------------------------------------------------------------
 -- !!! DO NOT COPY, JUST IMPORT (avoid conflicts, pick the best option for you)
