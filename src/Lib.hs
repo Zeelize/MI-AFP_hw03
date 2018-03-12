@@ -157,13 +157,13 @@ primes = [2] ++ (nextPrime [3,5..])
             where 
                 divider :: Integer -> Integer -> [Integer]
                 divider n cur 
-                    | cur >= n = []
-                    | mod n cur == 0 = [cur] ++ divider n (cur + 1)
+                    | cur > (div n 2) = []
+                    | mod n cur == 0 = [cur]
                     | otherwise = divider n (cur + 1) 
 
 -- TODO: implement list of prime factors for given number (use primes list)
 factorization :: Integer -> [Integer]
-factorization n = facDiv n 0
+factorization n = facDiv (abs n) 0
     where
         facDiv :: Integer -> Int -> [Integer]
         facDiv n i
@@ -179,7 +179,7 @@ factorization n = facDiv n 0
 -- TODO: implement phi(n) by using search in primes & factorization
 phi :: Integer -> Integer
 phi 0 = 0
-phi n = phiPrimes (factorization (abs n)) 
+phi n = phiPrimes (factorization n) 
     where
         phiPrimes :: [Integer] -> Integer
         phiPrimes pL = pGroup (Data.List.group pL)
