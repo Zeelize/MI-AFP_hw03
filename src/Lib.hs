@@ -152,7 +152,7 @@ primes = [2] ++ (nextPrime [3,5..])
     where 
         nextPrime :: [Integer] -> [Integer]
         nextPrime (x:xs) 
-            | length (divider x 2) == 0 = [x] ++ (nextPrime xs)
+            | length (divider x 3) == 0 = [x] ++ (nextPrime xs)
             | otherwise = nextPrime xs
             where 
                 divider :: Integer -> Integer -> [Integer]
